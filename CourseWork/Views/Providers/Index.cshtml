@@ -1,0 +1,161 @@
+﻿@model ProviderViewModel
+
+@{
+    ViewData["Title"] = "Поставщики";
+}
+
+
+<p>
+    <a asp-action="Create">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.NameSort"
+               asp-route-page="@Model.PageViewModel.PageNumber">
+                @if (Model.ItemsSort.Current == Provider.Sort.NameAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Provider.Sort.NameDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.AddressSort"
+               asp-route-page="@Model.PageViewModel.PageNumber">
+                @if (Model.ItemsSort.Current == Provider.Sort.AddressAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Provider.Sort.AddressDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Address)
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.PhoneNumberSort"
+               asp-route-page="@Model.PageViewModel.PageNumber">
+                @if (Model.ItemsSort.Current == Provider.Sort.PhoneNumberAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Provider.Sort.PhoneNumberDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().PhoneNumber)
+            </a>
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" title="Редактировать">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                    </svg>
+                </a>|
+                <a asp-action="Details" asp-route-id="@item.Id" title="Подробнее">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                </a>|
+                <a asp-action="Delete" asp-route-id="@item.Id" title="Удалить">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/>
+                    </svg>
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        @if (Model.PageViewModel.HasSecondPreviousPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-sort="@Model.ItemsSort.Current"
+                   asp-route-page="@(Model.PageViewModel.SecondPreviousPageNumber)"
+                   class="page-link">
+                    @(Model.PageViewModel.SecondPreviousPageNumber)
+                </a>
+            </li>
+        }
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-sort="@Model.ItemsSort.Current"
+                   asp-route-page="@(Model.PageViewModel.PreviousPageNumber)"
+                   class="page-link">
+                    @(Model.PageViewModel.PreviousPageNumber)
+                </a>
+            </li>
+        }
+        <li class="active page-item">
+            <a class="page-link ">
+                @(Model.PageViewModel.PageNumber)
+            </a>
+        </li>
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-sort="@Model.ItemsSort.Current"
+                   asp-route-page="@(Model.PageViewModel.NextPageNumber)"
+                   class="page-link">
+                    @(Model.PageViewModel.NextPageNumber)
+                </a>
+            </li>
+        }
+        @if (Model.PageViewModel.HasSecondNextPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-sort="@Model.ItemsSort.Current"
+                   asp-route-page="@(Model.PageViewModel.SecondNextPageNumber)"
+                   class="page-link">
+                    @(Model.PageViewModel.SecondNextPageNumber)
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

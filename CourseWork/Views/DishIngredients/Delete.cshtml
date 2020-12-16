@@ -1,0 +1,36 @@
+﻿@model DishIngredient
+
+@{
+    ViewData["Title"] = "Удаление ингредиента блюда";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h3>Вы действительно хотите удалить этот ингредиент блюда?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Count)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dish)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dish.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ingredient)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ingredient.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id"/>
+        <input type="submit" value="Удалить" class="btn btn-danger"/> |
+        <a asp-action="Index">Вернуться к списку</a>
+    </form>
+</div>

@@ -1,0 +1,284 @@
+﻿@model IngredientViewModel
+
+@{
+    ViewData["Title"] = "Ингредиенты";
+}
+
+<p>
+    <a asp-action="Create">Добавить</a>
+</p>
+<form method="get" class="filter-form">
+    <div class="form-line w-25">
+        <div class="form-line">
+            <label class="control-label">Поставщик:</label>
+            @Html.DropDownList("selectedProviderIndex", Model.ItemsFilter.ProvidersFilter, new {@class = "form-control"})
+        </div>
+        <br>
+        <div class="form-line">
+            <label class="control-label">Срок годности:</label>
+            <input name="expirationDate" class="form-control" type="number" min="0" value="@Model.ItemsFilter.ExpirationDateFilter"/>
+        </div>
+        <br>
+        <div class="form-line">
+            <label class="control-label">Стоимость:</label>
+            <input name="cost" class="form-control" type="number" min="0.01" step="0.01" value="@Model.ItemsFilter.CostFilter"/>
+        </div>
+        <br>
+        <div class="form-line">
+            <input type="submit" value="Поиск" class="btn btn-primary w-100"/>
+        </div>
+        <br>
+    </div>
+</form>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.NameSort"
+               asp-route-page="@Model.PageViewModel.PageNumber"
+               asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+               asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+               asp-route-cost="@Model.ItemsFilter.CostFilter">
+                @if (Model.ItemsSort.Current == Ingredient.Sort.NameAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Ingredient.Sort.NameDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.ReleaseDateSort"
+               asp-route-page="@Model.PageViewModel.PageNumber"
+               asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+               asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+               asp-route-cost="@Model.ItemsFilter.CostFilter">
+                @if (Model.ItemsSort.Current == Ingredient.Sort.ReleaseDateAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Ingredient.Sort.ReleaseDateDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().ReleaseDate)
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.CountSort"
+               asp-route-page="@Model.PageViewModel.PageNumber"
+               asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+               asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+               asp-route-cost="@Model.ItemsFilter.CostFilter">
+                @if (Model.ItemsSort.Current == Ingredient.Sort.CountAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Ingredient.Sort.CountDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Count)
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.CostSort"
+               asp-route-page="@Model.PageViewModel.PageNumber"
+               asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+               asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+               asp-route-cost="@Model.ItemsFilter.CostFilter">
+                @if (Model.ItemsSort.Current == Ingredient.Sort.CostAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Ingredient.Sort.CostDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Cost)
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.ExpirationDateSort"
+               asp-route-page="@Model.PageViewModel.PageNumber"
+               asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+               asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+               asp-route-cost="@Model.ItemsFilter.CostFilter">
+                @if (Model.ItemsSort.Current == Ingredient.Sort.ExpirationDateAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Ingredient.Sort.ExpirationDateDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().ExpirationDate)
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sort="@Model.ItemsSort.ProviderSort"
+               asp-route-page="@Model.PageViewModel.PageNumber"
+               asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+               asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+               asp-route-cost="@Model.ItemsFilter.CostFilter">
+                @if (Model.ItemsSort.Current == Ingredient.Sort.ProviderAsc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                    </svg>
+                }
+                else if (Model.ItemsSort.Current == Ingredient.Sort.ProviderDesc)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                    </svg>
+                }
+                Поставщик
+            </a>
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provider.Name)
+                <a asp-controller="Providers" asp-action="Details" asp-route-id="@item.ProviderId">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                    </svg>
+                </a>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" title="Редактировать">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                    </svg>
+                </a>|
+                <a asp-action="Details" asp-route-id="@item.Id" title="Подробнее">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                </a>|
+                <a asp-action="Delete" asp-route-id="@item.Id" title="Удалить">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                        <path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/>
+                    </svg>
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        @if (Model.PageViewModel.HasSecondPreviousPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-sort="@Model.ItemsSort.Current"
+                   asp-route-page="@(Model.PageViewModel.SecondPreviousPageNumber)"
+                   asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+                   asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+                   asp-route-cost="@Model.ItemsFilter.CostFilter"
+                   class="page-link">
+                    @(Model.PageViewModel.SecondPreviousPageNumber)
+                </a>
+            </li>
+        }
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-sort="@Model.ItemsSort.Current"
+                   asp-route-page="@(Model.PageViewModel.PreviousPageNumber)"
+                   asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+                   asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+                   asp-route-cost="@Model.ItemsFilter.CostFilter"
+                   class="page-link">
+                    @(Model.PageViewModel.PreviousPageNumber)
+                </a>
+            </li>
+        }
+        <li class="active page-item">
+            <a class="page-link ">
+                @(Model.PageViewModel.PageNumber)
+            </a>
+        </li>
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-sort="@Model.ItemsSort.Current"
+                   asp-route-page="@(Model.PageViewModel.NextPageNumber)"
+                   asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+                   asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+                   asp-route-cost="@Model.ItemsFilter.CostFilter"
+                   class="page-link">
+                    @(Model.PageViewModel.NextPageNumber)
+                </a>
+            </li>
+        }
+        @if (Model.PageViewModel.HasSecondNextPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-sort="@Model.ItemsSort.Current"
+                   asp-route-page="@(Model.PageViewModel.SecondNextPageNumber)"
+                   asp-route-selectedProviderIndex="@Model.ItemsFilter.SelectedProviderIndex"
+                   asp-route-expirationDate="@Model.ItemsFilter.ExpirationDateFilter"
+                   asp-route-cost="@Model.ItemsFilter.CostFilter"
+                   class="page-link">
+                    @(Model.PageViewModel.SecondNextPageNumber)
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

@@ -1,0 +1,36 @@
+﻿@model CourseWork.Models.Tables.DishIngredient
+
+@{
+    ViewData["Title"] = "Добавление ингредиента блюда";
+}
+
+
+<h1>@ViewData["Title"]</h1>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Count" class="control-label"></label>
+                <input asp-for="Count" class="form-control"/>
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DishId" class="control-label"></label>
+                <select asp-for="DishId" class="form-control" asp-items="ViewBag.DishId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientId" class="control-label"></label>
+                <select asp-for="IngredientId" class="form-control" asp-items="ViewBag.IngredientId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>
